@@ -2,8 +2,9 @@ name: "CodeQL"
 
 # yamllint disable-line rule:truthy
 on:
-  schedule:
-    - cron: "30 18 * * 4"
+  workflow_dispatch:
+  release:
+    types: ["published"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
