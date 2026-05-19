@@ -49,22 +49,10 @@ jobs:
         with:
           ignore-dev: true
 
-      - name: Fail if translations files are checked in
-        run: |
-          if [ -n "$(find homeassistant/components/*/translations -type f)" ]; then
-              echo "Translations files are checked in, please remove the following files:"
-              find homeassistant/components/*/translations -type f
-              exit 1
-          fi
-
-      - name: Download Translations
-        run: python3 -m script.translations download
-        env:
-          LOKALISE_TOKEN: ${{ secrets.LOKALISE_TOKEN }}
-
-      - name: Archive translations
+      - name: Archive and upload existing translations
         shell: bash
-        run: find ./homeassistant/components/*/translations -name "*.json" | tar zcvf translations.tar.gz -T -
+        run: |
+          find ./homeassistant/components/*/translations -name "*.json" | tar zcvf translations.tar.gz -T -
 
       - name: Upload translations
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
@@ -72,6 +60,11 @@ jobs:
           name: translations
           path: translations.tar.gz
           if-no-files-found: error
+
+      - name: Hard stop for testing
+        run: |
+          echo "Init-Job erfolgreich getestet! Breche hier absichtlich ab."
+          exit 1
 
   build_base:
     name: Build ${{ matrix.arch }} base core image
