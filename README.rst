@@ -1,3 +1,9 @@
+.. note::
+
+   **armv7 Legacy Support Fork (Work in Progress)**
+
+   This is a fork of `Home Assistant Core <https://github.com/home-assistant/core>`__ aimed at preserving compatibility for **armv7** devices alongside `home-assistant-os-armv7 <https://github.com/roteRakete66/home-assistant-os-armv7>`__. Currently under active adaptation.
+
 Home Assistant |Chat Status|
 =================================================================================
 
